@@ -1,17 +1,13 @@
-import { Rider } from "./Rider";
-
 export class Ride {
   #name;
+  #isRunning;
   #duration;
-  #count;
-  #maxPeople;
-  #head = null;
-  #tail = null;
-  constructor(name, duration, maxPeople) {
+  #queue;
+  constructor(name, duration, queue) {
     this.#name = name;
     this.#duration = duration;
-    this.#count = 0;
-    this.#maxPeople = maxPeople;
+    this.#isRunning = false;
+    this.#queue = queue;
   }
 
   get name() {
@@ -20,26 +16,36 @@ export class Ride {
   get duration() {
     return this.#duration;
   }
-  get maxPeople() {
-    return this.#maxPeople;
+  get isRunning() {
+    return this.#isRunning;
   }
-  set name(newName) {
-    this.#name = newName;
+  get queue() {
+    return this.#queue;
   }
-  set duration(newDuration) {
-    this.#duration = newDuration;
+  set isRunning(newIsRunning) {
+    this.#isRunning = newIsRunning;
   }
 
-  addToLine(name) {
-    const newRider = new Rider(name);
-    if (this.#head === null && this.#tail === null) {
-      this.#head = newRider;
-      this.#tail = newRider;
-      return;
+  startRide() {
+    console.log(
+      `Attention Guests, ${this.#name} has started. Step up and ride now. The length of the attraction is ${this.#duration} seconds`,
+    );
+    this.#isRunning = true;
+
+    while (this.#isRunning) {
+      setTimeout(() => {
+        console.log(
+          `The ${this.#name} has started! ${this.#queue.head} is up next! `,
+        );
+        this.#queue.finishRider();
+      }, this.#duration * 1000);
     }
-    const temp = this.#tail;
-    if (temp) this.#tail = newRider;
-    temp.next = this.#tail;
   }
-  removeNextRider() {}
+
+  closeRide() {
+    console.log(
+      `Attention guests, ${this.#name} is now closed for the day. Thank you to all those who rode it.`,
+    );
+    this.#isRunning = false;
+  }
 }

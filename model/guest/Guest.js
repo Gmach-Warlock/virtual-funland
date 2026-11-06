@@ -1,11 +1,18 @@
 export class Guest {
-  id;
-  name;
-  passes;
+  #id;
+  #name;
 
   constructor(name) {
-    this.id = crypto.randomUUID();
-    this.name = name;
-    this.passes = [];
+    this.#id = crypto.randomUUID();
+    this.#name = name;
+  }
+  get name() {
+    return this.#name;
+  }
+  get id() {
+    return this.#id;
+  }
+  set name(newName) {
+    this.#name = newName;
   }
 }

@@ -29,7 +29,9 @@ export class GuestsList {
     this.logGuests();
   }
 
-  logGuests() {
+  logGuests(type) {
+    if (type === "initialize")
+      console.log(`A decent crowd of people showed up at opening. `);
     console.log(`Guests List: `);
     this.#guests.forEach((guest) => {
       if (guest) console.log(`Guest: `, guest.name);

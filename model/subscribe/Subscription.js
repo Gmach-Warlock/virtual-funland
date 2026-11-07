@@ -1,20 +1,24 @@
 import { addItemToArray } from "../../controller/general/CRUDHelpers.js";
-import { subscribersSeed } from "../../controller/subscription/subscribers.js";
+import {
+  changeSubscriber,
+  logSubscriber,
+} from "../../controller/subscription/subscribers.js";
 
 export class Subscription {
   #subscribers;
 
-  constructor() {}
+  constructor() {
+    this.#subscribers = [];
+    this.subscribe(changeSubscriber);
+    this.subscribe(logSubscriber);
+  }
 
   get subscribers() {
     return this.#subscribers;
   }
-  initSubscription() {
-    subscribersSeed.forEach((subscriber) => {
-      this.subscribe(subscriber);
-    });
+  set subscribers(newSubscribers) {
+    this.#subscribers = newSubscribers;
   }
-
   notify(reason) {
     this.#subscribers.forEach((subscriber) => {
       subscriber(reason);
@@ -22,6 +26,10 @@ export class Subscription {
   }
 
   subscribe(subscriber) {
+    if (!subscriber) {
+      console.log("Subscriber is undefined");
+      return;
+    }
     this.#subscribers = addItemToArray(this.#subscribers, subscriber);
   }
 }

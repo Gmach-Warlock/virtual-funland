@@ -80,10 +80,10 @@ What's your next destination?
 
 1. Register Guest
 2. Remove Guest
-2. Ride an attraction
-3. Check attraction line
-4. 
-5. Book a ticket for show
+2. Look at Guest Directory
+3. Ride an attraction
+4. Check attraction line
+5. Look at Attraction Directory
 6. Exit
 `);
 }
@@ -97,4 +97,11 @@ export async function mainMenu() {
 
 export async function clearScreen() {
   console.clear();
+}
+
+export function refreshScreen(time = 2500) {
+  setTimeout(() => {
+    clearScreen();
+    mainMenu();
+  }, time);
 }

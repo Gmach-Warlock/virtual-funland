@@ -25,5 +25,4 @@ export function seedGuests(startingGuests = createGuests()) {
   startingGuests.forEach((guest) => {
     guestsList.addGuest(guest);
   });
-  console.log(`A decent crowd of people showed up at opening. `);
 }

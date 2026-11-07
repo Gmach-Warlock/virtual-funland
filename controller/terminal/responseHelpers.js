@@ -1,14 +1,16 @@
 import { Guest } from "../../model/guest/Guest.js";
 import { guestsList } from "../../model/guest/GuestsList.js";
+import { parkSubscription } from "../../model/subscribe/Subscription.js";
 import { getStringInput, mainMenu } from "../../view/menu.js";
 import { rl } from "../../view/menu.js";
 import { itemExists } from "../general/validation.js";
+import { parkUpdater } from "../park/parkHelpers.js";
 
-async function registerGuest() {
+async function registerGuest(seed = false) {
   const answer = await getStringInput(`What is the name of the new guest? `);
   const newGuest = new Guest(answer);
   guestsList.addGuest(newGuest);
-  mainMenu();
+  parkUpdater("add");
 }
 
 async function removeGuest() {
@@ -31,6 +33,9 @@ async function removeGuest() {
   mainMenu();
 }
 
+function viewGuestDirectory() {
+  guestsList.logGuests();
+}
 function exitApp() {
   console.log(`Thank you for visiting! 
 Please come again!`);
@@ -42,7 +47,7 @@ export async function respondToMainMenu(stringedNumber) {
   const lookup = {
     1: () => registerGuest(),
     2: () => removeGuest(),
-    3: () => console.log("Roller Coaster Coming"),
+    3: () => viewGuestDirectory(),
     4: () => console.log("Roller Coaster Coming"),
     5: () => console.log("Roller Coaster Coming"),
     6: () => exitApp(),

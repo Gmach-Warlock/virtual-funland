@@ -1,5 +1,5 @@
 export function addItemToArray(arr, itm) {
-  if (!Array.isArray(arr) || !itm) return;
+  if (!Array.isArray(arr) || !itm) return arr;
   const newArray = [...arr, itm];
   return newArray;
 }

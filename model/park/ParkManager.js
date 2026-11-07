@@ -29,13 +29,17 @@ export class ParkManager {
 
   startPark() {
     console.log(
-      `It' that magical time: Opening Time. Virtually Fun Land is now open for business. Please make your way forward and head into the admission lines. `,
+      `
+  It' that magical time: Opening Time. Virtually Fun Land is now open for business. Please make your way forward and head into the admission lines. 
+  `,
     );
   }
 
   closePark() {
     console.log(
-      `Attention Guests: The park is now closed. Please kindly make your ways towards the exits in an orderly fashion. `,
+      `
+Attention Guests: The park is now closed. Please kindly make your ways towards the exits in an orderly fashion. 
+`,
     );
   }
 }

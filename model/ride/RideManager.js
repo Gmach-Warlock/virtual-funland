@@ -1,7 +1,29 @@
 export class RideManager {
-  #rides;
+  #ride;
+  #queue;
+  #counter;
+  constructor(ride, queue, counter) {
+    this.#ride = ride;
+    this.#queue = queue;
+    this.#counter = counter;
+  }
 
-  constructor() {
-    this.#rides = [];
+  get ride() {
+    return this.#ride;
+  }
+  get queue() {
+    return this.#queue;
+  }
+  get counter() {
+    return this.#counter;
+  }
+  set queue(newQueue) {
+    this.#queue = newQueue;
+  }
+  set ride(newRide) {
+    this.#ride = newRideName;
+  }
+  set counter(newCounter) {
+    this.#counter = newCounter;
   }
 }

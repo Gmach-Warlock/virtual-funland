@@ -30,4 +30,4 @@ export class RideCounter {
   }
 }
 
-export const coasterCounter = new RideCounter("Roller Coaster", 10);
+export const clcCounter = new RideCounter("Command Line Coaster", 5);

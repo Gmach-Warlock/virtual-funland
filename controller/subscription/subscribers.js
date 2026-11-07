@@ -12,7 +12,10 @@ export function changeSubscriber(type) {
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 |     |     |     |     |     |     |     |     |     |     |
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
-`),
+              <---- Virtually Entertaining ---->
+
+              
+              `),
     add: () => console.log(` A new guest has entered the park! `),
   };
   if (Object.keys(lookup).some((key) => key === type)) {

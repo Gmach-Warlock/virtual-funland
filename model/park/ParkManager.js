@@ -1,3 +1,5 @@
+import { parkRides } from "./ParkRides.js";
+
 export class ParkManager {
   #guests;
   #subscribers;
@@ -35,6 +37,7 @@ export class ParkManager {
   
   `,
     );
+    parkRides.start();
   }
 
   closePark() {

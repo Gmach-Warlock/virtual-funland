@@ -1,7 +1,6 @@
 import { Guest } from "../../model/guest/Guest.js";
 import { guestsList } from "../../model/guest/GuestsList.js";
-import { parkSubscription } from "../../model/subscribe/Subscription.js";
-import { getStringInput, mainMenu } from "../../view/menu.js";
+import { getNumericInput, getStringInput, mainMenu } from "../../view/menu.js";
 import { rl } from "../../view/menu.js";
 import { itemExists } from "../general/validation.js";
 import { parkUpdater } from "../park/parkHelpers.js";
@@ -35,7 +34,34 @@ async function removeGuest() {
 
 function viewGuestDirectory() {
   guestsList.logGuests();
+  mainMenu();
 }
+
+export function denyAndReturn(message) {
+  console.log(message);
+  mainMenu();
+}
+
+async function addToRideLine(guest) {
+  const ride = await getNumericInput(
+    `
+Which ride is the person getting on?
+    
+1. Command Line Coaster
+2. Frozen Channel
+3. Multi Threaded Processor
+
+Please choose the appropriate value: `,
+    3,
+  );
+  const guestName = getStringInput(`What is the name of the guest to `);
+  if (!guestsList.guests.some((guest) => guest.name === guestName)) {
+    denyAndReturn(
+      "There is no guest here with that name at this time. Returning. ",
+    );
+  }
+}
+
 function exitApp() {
   console.log(`Thank you for visiting! 
 Please come again!`);
@@ -48,7 +74,7 @@ export async function respondToMainMenu(stringedNumber) {
     1: () => registerGuest(),
     2: () => removeGuest(),
     3: () => viewGuestDirectory(),
-    4: () => console.log("Roller Coaster Coming"),
+    4: () => addToRideLine(),
     5: () => console.log("Roller Coaster Coming"),
     6: () => exitApp(),
   };

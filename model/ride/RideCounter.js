@@ -22,10 +22,10 @@ export class RideCounter {
     this.#count = newCount;
   }
 
-  addRiderCount() {
+  add() {
     this.#count++;
   }
-  removeRiderCount() {
+  remove() {
     this.#count--;
   }
 }

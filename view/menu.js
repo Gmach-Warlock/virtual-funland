@@ -101,7 +101,7 @@ export async function clearScreen() {
 
 export function refreshScreen(time = 2500) {
   setTimeout(() => {
-    clearScreen();
+    // clearScreen();
     mainMenu();
   }, time);
 }

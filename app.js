@@ -1,3 +1,9 @@
-import { mainMenu } from "./view/menu.js";
+import { parkInitializer } from "./controller/park/parkHelpers.js";
+import { clearScreen, mainMenu } from "./view/menu.js";
 
-mainMenu();
+parkInitializer();
+
+setTimeout(() => {
+  clearScreen();
+  mainMenu();
+}, 2500);

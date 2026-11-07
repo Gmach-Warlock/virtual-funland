@@ -54,4 +54,4 @@ export class RideQueue {
   }
 }
 
-export const coasterLine = new RideQueue("Roller Coaster", 10);
+export const commandLineCoasterLine = new RideQueue("Command Line Coaster", 10);

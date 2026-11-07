@@ -49,3 +49,5 @@ export class Ride {
     this.#isRunning = false;
   }
 }
+
+export const commmandLineCoaster = new Ride("Command Line Coaster", 120000);

@@ -74,8 +74,7 @@ function openingGreeting() {
 Welcome to Virtually Fun Land, virtually fun for everyone. `);
 }
 
-export async function mainMenu() {
-  openingGreeting();
+function openingMenu() {
   console.log(`
 What's your next destination?
 
@@ -87,6 +86,15 @@ What's your next destination?
 5. Book a ticket for show
 6. Exit
 `);
+}
+
+export async function mainMenu() {
+  openingGreeting();
+  openingMenu();
   const answer = await getNumericInput("Please enter the appropriate value: ");
   if (answer) respondToMainMenu(answer);
+}
+
+export async function clearScreen() {
+  console.clear();
 }

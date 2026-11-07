@@ -1,11 +1,12 @@
 import { guestsList } from "../../model/guest/GuestsList.js";
 import { seedGuests } from "../../utils/seed.js";
 
-function logSubscriber(type) {
-  guestsList.logGuests();
+export function logSubscriber(type) {
+  guestsList.logGuests(type);
 }
 
-function seedSubscriber(type) {
+export function seedSubscriber(type) {
+  console.log("start it up");
   if (type === "initialize") {
     seedGuests();
   }

@@ -1,7 +1,7 @@
 import {
   addItemToArray,
   removeItemFromArray,
-} from "../../controller/CRUDHelpers.js";
+} from "../../controller/general/CRUDHelpers.js";
 
 export class GuestsList {
   #guests;
@@ -18,12 +18,10 @@ export class GuestsList {
 
   addGuest(newGuest) {
     this.#guests = addItemToArray(this.#guests, newGuest);
-    this.logGuests();
   }
 
   removeGuest(gToDelete) {
     this.#guests = removeItemFromArray(this.#guests, gToDelete);
-    this.logGuests();
   }
 
   setGuests(newGuests) {
@@ -34,7 +32,7 @@ export class GuestsList {
   logGuests() {
     console.log(`Guests List: `);
     this.#guests.forEach((guest) => {
-      console.log(`Name: `, guest.name);
+      if (guest) console.log(`Guest: `, guest.name);
     });
   }
 }

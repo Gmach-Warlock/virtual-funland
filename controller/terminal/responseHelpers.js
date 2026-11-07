@@ -2,7 +2,7 @@ import { Guest } from "../../model/guest/Guest.js";
 import { guestsList } from "../../model/guest/GuestsList.js";
 import { getStringInput, mainMenu } from "../../view/menu.js";
 import { rl } from "../../view/menu.js";
-import { itemExists } from "../validation.js";
+import { itemExists } from "../general/validation.js";
 
 async function registerGuest() {
   const answer = await getStringInput(`What is the name of the new guest? `);

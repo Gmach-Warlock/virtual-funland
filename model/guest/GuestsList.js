@@ -2,7 +2,7 @@ import {
   addItemToArray,
   removeItemFromArray,
 } from "../../controller/general/CRUDHelpers.js";
-import { guestPrompt } from "../../controller/terminal/responsePrompts.js";
+import { guestPrompt } from "../../controller/terminal/prompts/responsePrompts.js";
 
 export class GuestsList {
   #guests;

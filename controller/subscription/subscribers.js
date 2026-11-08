@@ -1,5 +1,5 @@
 import { guestsList } from "../../model/guest/GuestsList.js";
-import { parkBanner } from "../terminal/bannerPrompts.js";
+import { parkBanner } from "../terminal/prompts/bannerPrompts.js";
 
 export function logSubscriber(type) {
   guestsList.logGuests(type);

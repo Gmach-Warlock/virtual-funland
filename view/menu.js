@@ -1,10 +1,10 @@
 import readline from "node:readline";
-import { respondToMainMenu } from "../controller/terminal/responseHelpers.js";
+import { respondToMainMenu } from "../controller/terminal/actions/responseHelpers.js";
 import {
   openingGreeting,
   openingMenu,
-} from "../controller/terminal/openingPrompts.js";
-import { getNumericInput } from "../controller/terminal/getInputs.js";
+} from "../controller/terminal/prompts/openingPrompts.js";
+import { getNumericInput } from "../controller/terminal/actions/getInputs.js";
 
 export const rl = readline.createInterface({
   input: process.stdin,

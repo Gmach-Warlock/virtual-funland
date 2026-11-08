@@ -1,7 +1,6 @@
 import { describe, it } from "node:test";
 import assert from "node:assert";
-import { itemExists } from "../controller/validation";
-
+import { itemExists } from "../../controller/general/validation.js";
 describe("itemExists", () => {
   it("should return false if the item doesn't exist or if the params are bad", () => {
     // arrange
@@ -22,7 +21,7 @@ describe("itemExists", () => {
     // arrange
     const arr = [{ id: 1 }, { id: 2 }, { id: 3 }];
     const prop = "id";
-    const value = { id: 2 };
+    const value = 2;
     // act
     const result = itemExists(arr, prop, value);
     // assert

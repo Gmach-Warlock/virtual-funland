@@ -1,4 +1,4 @@
-import { openRidePrompt } from "../../controller/terminal/ridePrompts.js";
+import { openRidePrompt } from "../../controller/terminal/prompts/ridePrompts.js";
 
 export class Ride {
   #name;
@@ -29,10 +29,8 @@ export class Ride {
   }
 
   open() {
-    setTimeout(() => {
-      openRidePrompt(this.#name, this.#duration);
-      this.#isRunning = true;
-    }, 6000);
+    openRidePrompt(this.#name, this.#duration);
+    this.#isRunning = true;
   }
 
   close() {

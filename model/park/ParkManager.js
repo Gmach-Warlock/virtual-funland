@@ -1,5 +1,5 @@
-import { closeParkPrompt } from "../../controller/terminal/closingPrompts.js";
-import { openParkPrompt } from "../../controller/terminal/openingPrompts.js";
+import { closeParkPrompt } from "../../controller/terminal/prompts/closingPrompts.js";
+import { openParkPrompt } from "../../controller/terminal/prompts/openingPrompts.js";
 import { parkRides } from "./ParkRides.js";
 
 export class ParkManager {
@@ -31,12 +31,15 @@ export class ParkManager {
     return this.#instance;
   }
 
-  startPark() {
+  open() {
     openParkPrompt();
+  }
+
+  start() {
     parkRides.start();
   }
 
-  closePark() {
+  close() {
     closeParkPrompt();
   }
 }

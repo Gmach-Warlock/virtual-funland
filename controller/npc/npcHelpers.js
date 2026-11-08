@@ -1,3 +1,6 @@
+import { waitingLinePrompt } from "../terminal/prompts/linePrompts.js";
+import { lineRushPrompt } from "../terminal/prompts/ridePrompts.js";
+
 export async function formLine(guestsArr, queue) {
   console.log("forming line", guestsArr, queue);
   guestsArr.forEach((guest) => {
@@ -26,10 +29,38 @@ export async function splitUpParty(arr) {
     fcNPCs,
     mtpNPCs,
   };
-  console.log("Guest lines, ", obj);
   return obj;
 }
 
+export function rankLines(linesObj) {
+  const clc = {
+    name: "Command Line Coaster",
+    len: linesObj.clcNPCs.length,
+    arr: linesObj.clcNPCs,
+  };
+  const fc = {
+    name: "Frozen Channel",
+    len: linesObj.fcNPCs.length,
+    arr: linesObj.fcNPCs,
+  };
+  const mtp = {
+    name: "Multi Threaded Processor",
+    len: linesObj.mtpNPCs.length,
+    arr: linesObj.mtpNPCs,
+  };
+  const unordered = [clc, fc, mtp];
+  const ordered = unordered.sort((a, b) => b.len - a.len);
+  return ordered;
+}
+
 export async function seedLines(arr) {
-  splitUpParty(arr);
+  const linesObj = await splitUpParty(arr);
+  const ranks = rankLines(linesObj);
+  return ranks;
+  7;
+}
+
+export function logLines(ordered) {
+  lineRushPrompt();
+  ordered.forEach((obj) => waitingLinePrompt(obj));
 }

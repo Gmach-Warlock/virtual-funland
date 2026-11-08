@@ -1,12 +1,12 @@
-import { Guest } from "../../model/guest/Guest.js";
-import { guestsList } from "../../model/guest/GuestsList.js";
-import { denyAndReturn, mainMenu } from "../../view/menu.js";
-import { rl } from "../../view/menu.js";
-import { itemExists } from "../general/validation.js";
-import { parkUpdater } from "../park/parkHelpers.js";
-import { guestPrompt, ridePrompts } from "./responsePrompts.js";
+import { Guest } from "../../../model/guest/Guest.js";
+import { guestsList } from "../../../model/guest/GuestsList.js";
+import { denyAndReturn, mainMenu } from "../../../view/menu.js";
+import { rl } from "../../../view/menu.js";
+import { itemExists } from "../../general/validation.js";
+import { parkUpdater } from "../../park/parkHelpers.js";
+import { guestPrompt, ridePrompts } from "../prompts/responsePrompts.js";
 import { getStringInput, getNumericInput } from "./getInputs.js";
-import { clcObj, fcObj, mtpObj } from "../ride/rideInstances.js";
+import { clcObj, fcObj, mtpObj } from "../../ride/rideSeeding.js";
 
 async function registerGuest() {
   const answer = await getStringInput(guestPrompt("add"));

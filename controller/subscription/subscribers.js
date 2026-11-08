@@ -8,13 +8,12 @@ export function changeSubscriber(type) {
   const lookup = {
     initialize: () =>
       console.log(`
-                <---- Virtually Fun Land ---->
--- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
-|     |     |     |     |     |     |     |     |     |     |
--- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
-              <---- Virtually Entertaining ---->
+              <---- Virtually Fun Land ---->
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+|     |     |     |     |     |     |     |     |     |     
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+            <---- Virtually Entertaining ---->
 
-              
               `),
     add: () => console.log(` A new guest has entered the park! `),
   };

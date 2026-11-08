@@ -29,5 +29,3 @@ export class RideCounter {
     this.#count--;
   }
 }
-
-export const clcCounter = new RideCounter("Command Line Coaster", 5);

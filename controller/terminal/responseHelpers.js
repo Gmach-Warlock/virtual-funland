@@ -1,12 +1,14 @@
 import { Guest } from "../../model/guest/Guest.js";
 import { guestsList } from "../../model/guest/GuestsList.js";
-import { getNumericInput, getStringInput, mainMenu } from "../../view/menu.js";
+import { denyAndReturn, mainMenu } from "../../view/menu.js";
 import { rl } from "../../view/menu.js";
 import { itemExists } from "../general/validation.js";
 import { parkUpdater } from "../park/parkHelpers.js";
+import { guestPrompt } from "./responsePrompts.js";
+import { getStringInput, getNumericInput } from "./getInputs.js";
 
-async function registerGuest(seed = false) {
-  const answer = await getStringInput(`What is the name of the new guest? `);
+async function registerGuest() {
+  const answer = await getStringInput(guestPrompt("add"));
   const newGuest = new Guest(answer);
   guestsList.addGuest(newGuest);
   parkUpdater("add");
@@ -14,19 +16,15 @@ async function registerGuest(seed = false) {
 
 async function removeGuest() {
   const arr = guestsList.guests;
-  const answer = await getStringInput(
-    `What is the name of the guest who is checking out for the day? `,
-  );
+  const answer = await getStringInput(guestPrompt("remove"));
   console.log("checking in removeGuests", arr, answer);
   if (!itemExists(arr, "name", answer)) {
-    console.log(`There isn't a guest with that name in the park. Returning`);
-    mainMenu();
+    denyAndReturn("There isn't a guest with that name in the park");
   }
   const itemToRemove = arr.find((item) => item.name === answer);
   guestsList.removeGuest(itemToRemove);
   if (!itemToRemove) {
-    console.log("No guest with that name");
-    mainMenu();
+    denyAndReturn("No guest with that name. Returning");
   }
   guestsList.removeGuest(itemToRemove);
   mainMenu();
@@ -34,11 +32,6 @@ async function removeGuest() {
 
 function viewGuestDirectory() {
   guestsList.logGuests();
-  mainMenu();
-}
-
-export function denyAndReturn(message) {
-  console.log(message);
   mainMenu();
 }
 
@@ -54,12 +47,31 @@ Which ride is the person getting on?
 Please choose the appropriate value: `,
     3,
   );
-  const guestName = getStringInput(`What is the name of the guest to `);
+  const guestName = getStringInput(
+    `What is the name of the guest to add to the line? `,
+  );
   if (!guestsList.guests.some((guest) => guest.name === guestName)) {
     denyAndReturn(
       "There is no guest here with that name at this time. Returning. ",
     );
   }
+  const lookup = {
+    1: () => console.log("need to add to Command Line Coaster"),
+    2: () => console.log("need to add to Frozen Channel"),
+    3: () => console.log("need to add to Multi Threaded Processor"),
+  };
+  console.log("Need to add and use, ", ride, guestName);
+  return lookup[value];
+}
+
+function checkLine() {
+  console.log("coming soon");
+  mainMenu();
+}
+
+function viewAttractionDirectory() {
+  console.log("coming soon");
+  mainMenu();
 }
 
 function exitApp() {
@@ -75,8 +87,9 @@ export async function respondToMainMenu(stringedNumber) {
     2: () => removeGuest(),
     3: () => viewGuestDirectory(),
     4: () => addToRideLine(),
-    5: () => console.log("Roller Coaster Coming"),
-    6: () => exitApp(),
+    5: () => checkLine(),
+    6: () => viewAttractionDirectory(),
+    7: () => exitApp(),
   };
   return lookup[number]();
 }

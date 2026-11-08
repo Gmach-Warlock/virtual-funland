@@ -1,5 +1,4 @@
 import { addItemToArray } from "../../controller/general/CRUDHelpers.js";
-import { mainMenu } from "../../view/menu.js";
 
 export class ParkRides {
   #rides;
@@ -24,7 +23,6 @@ export class ParkRides {
     this.#rides.forEach((ride) => {
       ride.open();
     });
-    mainMenu();
   }
   end() {
     this.#rides.forEach((ride) => {

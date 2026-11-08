@@ -1,3 +1,4 @@
+import { openParkPrompt } from "../../controller/terminal/openingPrompts.js";
 import { parkRides } from "./ParkRides.js";
 
 export class ParkManager {
@@ -30,13 +31,7 @@ export class ParkManager {
   }
 
   startPark() {
-    console.log(
-      `
-  
-      It's that magical time: Opening Time!! Virtually Fun Land is now open for business! Please make your way forward and head into the admission lines. 
-  
-  `,
-    );
+    openParkPrompt();
     parkRides.start();
   }
 

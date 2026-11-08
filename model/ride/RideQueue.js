@@ -22,7 +22,7 @@ export class RideQueue {
     this.#rideName = newRidename;
   }
 
-  addRider(name, counterInstance) {
+  add(name, counterInstance) {
     if (counterInstance.count === counterInstance.max) {
       console.log(
         `The line is currently full for ${this.#rideName}. Please try again later.`,
@@ -38,14 +38,14 @@ export class RideQueue {
     if (temp) this.#tail = newRider;
     temp.next = newRider;
   }
-  finishRider() {
+  finish() {
     console.log(
       `It's now ${this.#head.name}'s turn to ride the ${this.#rideName}`,
     );
     this.#head = this.#head.next;
   }
 
-  logRiders() {
+  log() {
     let current = this.#head;
     while (current) {
       console.log(`rider: ${current.name}`);
@@ -53,5 +53,3 @@ export class RideQueue {
     }
   }
 }
-
-export const clcQueue = new RideQueue("Command line Coaster");

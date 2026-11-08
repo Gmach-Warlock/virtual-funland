@@ -1,3 +1,5 @@
+import { openRidePrompt } from "../../controller/terminal/ridePrompts.js";
+
 export class Ride {
   #name;
   #isRunning;
@@ -28,11 +30,7 @@ export class Ride {
 
   open() {
     setTimeout(() => {
-      console.log(
-        `
-        Attention Guests, ${this.#name} is now open to ride!! Everyone come on down. The length of the attraction is ${this.#duration} minutes
-        `,
-      );
+      openRidePrompt(this.#name, this.#duration);
       this.#isRunning = true;
     }, 6000);
   }

@@ -1,4 +1,4 @@
-export class Park {
+export class ParkHours {
   #rides;
   #isOpen;
   constructor() {
@@ -27,3 +27,5 @@ export class Park {
     this.#isOpen = false;
   }
 }
+
+export const parkHours = new ParkHours();

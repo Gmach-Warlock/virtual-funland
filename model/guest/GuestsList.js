@@ -2,6 +2,7 @@ import {
   addItemToArray,
   removeItemFromArray,
 } from "../../controller/general/CRUDHelpers.js";
+import { guestPrompt } from "../../controller/terminal/responsePrompts.js";
 
 export class GuestsList {
   #guests;
@@ -30,8 +31,11 @@ export class GuestsList {
   }
 
   logGuests(type) {
-    if (type === "initialize")
-      console.log(`A decent crowd of people showed up at opening. `);
+    if (type === "initialize") console.log(guestPrompt(type));
+
+    if (type !== "initiliaze")
+      console.log(`Here are the current Guests
+      `);
     console.log(`Guests List: `);
     this.#guests.forEach((guest) => {
       if (guest) console.log(`Guest: `, guest.name);

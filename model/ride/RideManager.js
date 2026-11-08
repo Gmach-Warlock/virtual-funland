@@ -21,7 +21,7 @@ export class RideManager {
     this.#queue = newQueue;
   }
   set ride(newRide) {
-    this.#ride = newRideName;
+    this.#ride = newRide;
   }
   set counter(newCounter) {
     this.#counter = newCounter;

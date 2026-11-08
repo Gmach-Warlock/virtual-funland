@@ -4,8 +4,9 @@ import { denyAndReturn, mainMenu } from "../../view/menu.js";
 import { rl } from "../../view/menu.js";
 import { itemExists } from "../general/validation.js";
 import { parkUpdater } from "../park/parkHelpers.js";
-import { guestPrompt } from "./responsePrompts.js";
+import { guestPrompt, ridePrompts } from "./responsePrompts.js";
 import { getStringInput, getNumericInput } from "./getInputs.js";
+import { clcObj, fcObj, mtpObj } from "../ride/rideInstances.js";
 
 async function registerGuest() {
   const answer = await getStringInput(guestPrompt("add"));
@@ -14,19 +15,21 @@ async function registerGuest() {
   parkUpdater("add");
 }
 
-async function removeGuest() {
+async function findGuest(type) {
   const arr = guestsList.guests;
-  const answer = await getStringInput(guestPrompt("remove"));
+  const answer = await getStringInput(guestPrompt(type));
   console.log("checking in removeGuests", arr, answer);
   if (!itemExists(arr, "name", answer)) {
     denyAndReturn("There isn't a guest with that name in the park");
   }
   const itemToRemove = arr.find((item) => item.name === answer);
-  guestsList.removeGuest(itemToRemove);
-  if (!itemToRemove) {
-    denyAndReturn("No guest with that name. Returning");
-  }
-  guestsList.removeGuest(itemToRemove);
+  return itemToRemove;
+}
+
+async function removeGuest() {
+  const guestToRemove = findGuest("remove");
+  if (!guestToRemove) return;
+  guestsList.removeGuest(guestToRemove);
   mainMenu();
 }
 
@@ -36,18 +39,8 @@ function viewGuestDirectory() {
 }
 
 async function addToRideLine(guest) {
-  const ride = await getNumericInput(
-    `
-Which ride is the person getting on?
-    
-1. Command Line Coaster
-2. Frozen Channel
-3. Multi Threaded Processor
-
-Please choose the appropriate value: `,
-    3,
-  );
-  const guestName = getStringInput(
+  const ride = await getNumericInput(ridePrompts("add"), 3);
+  const guestName = await getStringInput(
     `What is the name of the guest to add to the line? `,
   );
   if (!guestsList.guests.some((guest) => guest.name === guestName)) {
@@ -56,12 +49,22 @@ Please choose the appropriate value: `,
     );
   }
   const lookup = {
-    1: () => console.log("need to add to Command Line Coaster"),
-    2: () => console.log("need to add to Frozen Channel"),
-    3: () => console.log("need to add to Multi Threaded Processor"),
+    1: () =>
+      clcObj["Command Line Coaster Queue"].add(
+        guest,
+        clcObj["Command Line Coaster Counter"],
+      ),
+    2: () =>
+      fcObj["Frozen Channel Queue"].add(guest, fcObj["Frozen Channel Counter"]),
+    3: () =>
+      mtpObj["Multi Threaded Processor Queue"].addGuest(
+        guest,
+        mtpObj["Multi Threaded Processor Counter"],
+      ),
   };
-  console.log("Need to add and use, ", ride, guestName);
-  return lookup[value];
+  console.log("Need to add and use, ", clcObj["Command Line Coaster Queue"]);
+  lookup[ride]();
+  mainMenu();
 }
 
 function checkLine() {

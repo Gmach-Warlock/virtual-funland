@@ -21,3 +21,22 @@ export function linePrompts(type, name) {
   };
   return lookup[type];
 }
+
+export function ridePrompts(type) {
+  const lookup = {
+    add: `
+Which ride is the person getting on?
+    
+1. Command Line Coaster
+2. Frozen Channel
+3. Multi Threaded Processor
+
+Please choose the appropriate value: `,
+    remove:
+      "What is the name of the guest who wants to leave the line they are in?",
+    view: "",
+    lineIn: "",
+    lineOut: "",
+  };
+  return lookup[type];
+}

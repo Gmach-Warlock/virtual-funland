@@ -6,7 +6,7 @@ import {
 } from "../controller/general/CRUDHelpers.js";
 
 describe("addItemToArray", () => {
-  it("should early return undefined if the arr param is not of proper type or if the item is missing", () => {
+  it("should early return with the original array if the arr param is not of proper type or if the item is missing", () => {
     // arrange
     const badArr = "string";
     const goodArr = [1, 2, 3, 4];
@@ -15,8 +15,8 @@ describe("addItemToArray", () => {
     const result1 = addItemToArray(badArr, item);
     const result2 = addItemToArray(goodArr);
     // assert
-    assert.strictEqual(result1, undefined);
-    assert.strictEqual(result2, undefined);
+    assert.strictEqual(result1, badArr);
+    assert.strictEqual(result2, goodArr);
   });
   it("should return a new array with the item added to it and not mutate the original array", () => {
     // arrange

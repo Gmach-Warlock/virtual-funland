@@ -6,10 +6,10 @@ export class ParkRides {
     this.#rides = [];
   }
 
-  get ride() {
+  get rides() {
     return this.#rides;
   }
-  set ride(newRides) {
+  set rides(newRides) {
     this.#rides = newRides;
   }
 

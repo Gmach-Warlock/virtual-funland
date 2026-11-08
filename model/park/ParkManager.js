@@ -1,3 +1,4 @@
+import { closeParkPrompt } from "../../controller/terminal/closingPrompts.js";
 import { openParkPrompt } from "../../controller/terminal/openingPrompts.js";
 import { parkRides } from "./ParkRides.js";
 
@@ -36,11 +37,7 @@ export class ParkManager {
   }
 
   closePark() {
-    console.log(
-      `
-Attention Guests: The park is now closed. Please kindly make your ways towards the exits in an orderly fashion. 
-`,
-    );
+    closeParkPrompt();
   }
 }
 

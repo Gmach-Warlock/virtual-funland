@@ -5,6 +5,7 @@ import { seedGuests } from "../guest/guestSeeding.js";
 import { refreshScreen } from "../../view/menu.js";
 import { logLines, seedLines } from "../npc/npcHelpers.js";
 import { rideInstances, seedRide } from "../ride/rideSeeding.js";
+import { parkQueues } from "../../model/park/ParkQueues.js";
 
 export function parkUpdater(reason) {
   parkSubscription.notify(reason);
@@ -20,7 +21,25 @@ export async function handleOpeningSeeds() {
   seedRiders();
 }
 
-export async function handleLineRush() {}
+export function formLineQueue(obj) {
+  const queueToUse = parkQueues.queues.find(
+    (queue) => queue.rideName === obj.name,
+  );
+
+  if (!queueToUse) {
+    console.log("no queue to use");
+    return;
+  }
+  obj.arr.forEach((guest) => queueToUse.add(guest));
+}
+
+export async function handleLineRush() {
+  const ranks = await seedLines(guestsList.guests);
+  console.log("ranks, ", ranks);
+  ranks.forEach((obj) => formLineQueue(obj));
+  parkQueues.log();
+  logLines(ranks);
+}
 
 export function parkInitializer() {
   handleOpeningSeeds();
@@ -30,10 +49,9 @@ export function parkInitializer() {
   }, 2500);
   setTimeout(() => {
     parkManager.start();
-  }, 3300);
-  setTimeout(async () => {
-    const ranks = await seedLines(guestsList.guests);
-    logLines(ranks);
   }, 5000);
-  refreshScreen(6900);
+  setTimeout(async () => {
+    handleLineRush();
+  }, 7500);
+  refreshScreen(11000);
 }

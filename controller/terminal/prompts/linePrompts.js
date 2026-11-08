@@ -5,5 +5,15 @@ export function lineRushPrompt() {
 
 export function waitingLinePrompt(obj) {
   console.log(`The ${obj.name} has ${obj.len} people in line after the rush. `);
-  obj.arr.forEach((guest) => console.log(`${guest.name}`));
+  const names = [];
+  obj.arr.forEach((guest) => {
+    names.push(guest.name);
+  });
+  names[names.length - 1] = `and ${names[names.length - 1]}`;
+  const string = names.join(`, `);
+  console.log(
+    string,
+    `are lined up.
+  `,
+  );
 }

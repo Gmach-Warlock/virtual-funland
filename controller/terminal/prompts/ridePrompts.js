@@ -8,6 +8,7 @@ The length of the attraction is ${duration} minutes
 }
 
 export function lineRushPrompt(linesObj) {
-  console.log(`The current guests race to their favorit rides!
+  console.log(`
+The current guests race to their favorit rides!
 `);
 }

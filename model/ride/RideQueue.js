@@ -2,11 +2,15 @@ import { Rider } from "./Rider.js";
 
 export class RideQueue {
   #rideName;
+  #count;
+  #max;
   #head = null;
   #tail = null;
 
-  constructor(rideName) {
+  constructor(rideName, max) {
     this.#rideName = rideName;
+    this.#max = max;
+    this.#count = 0;
   }
 
   get head() {
@@ -21,22 +25,30 @@ export class RideQueue {
   set rideName(newRidename) {
     this.#rideName = newRidename;
   }
+  get count() {
+    return this.#count;
+  }
+  set count(newCount) {
+    this.#count = newCount;
+  }
 
-  add(name, counterInstance) {
-    if (counterInstance.count === counterInstance.max) {
+  add(guest) {
+    if (this.#count === this.#max) {
       console.log(
         `The line is currently full for ${this.#rideName}. Please try again later.`,
       );
     }
-    const newRider = new Rider(name);
+    const newRider = new Rider(guest.name);
     if (this.#head === null && this.#tail === null) {
       this.#head = newRider;
       this.#tail = newRider;
+      this.#count++;
       return;
     }
     const temp = this.#tail;
     if (temp) this.#tail = newRider;
     temp.next = newRider;
+    this.#count++;
   }
   finish() {
     console.log(

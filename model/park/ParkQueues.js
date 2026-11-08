@@ -26,7 +26,8 @@ export class ParkQueues {
   }
 
   log() {
-    console.log(`Queues`, this.#queues);
+    console.log(`Queues`);
+    this.#queues.forEach((queue) => console.log(queue.head));
   }
 }
 

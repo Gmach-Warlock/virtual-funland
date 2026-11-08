@@ -57,7 +57,6 @@ export async function seedLines(arr) {
   const linesObj = await splitUpParty(arr);
   const ranks = rankLines(linesObj);
   return ranks;
-  7;
 }
 
 export function logLines(ordered) {

@@ -26,8 +26,17 @@ export class ParkQueues {
   }
 
   log() {
-    console.log(`Queues`);
-    this.#queues.forEach((queue) => console.log(queue.head));
+    console.log(`Rides and their current riders. `);
+    this.#queues.forEach((queue) => {
+      console.log(`= = = = = = = = = = = = = = = = = = = = =
+          ${queue.rideName}
+      `);
+      let current = queue.head;
+      while (current) {
+        console.log(`${current.name}`);
+        current = current.next;
+      }
+    });
   }
 }
 

@@ -32,7 +32,7 @@ export class RideQueue {
     this.#count = newCount;
   }
 
-  add(guest) {
+  enqueue(guest) {
     if (this.#count === this.#max) {
       console.log(
         `The line is currently full for ${this.#rideName}. Please try again later.`,
@@ -50,11 +50,14 @@ export class RideQueue {
     temp.next = newRider;
     this.#count++;
   }
-  finish() {
+
+  dequeue() {
     console.log(
       `It's now ${this.#head.name}'s turn to ride the ${this.#rideName}`,
     );
+
     this.#head = this.#head.next;
+    this.#count--;
   }
 
   log() {

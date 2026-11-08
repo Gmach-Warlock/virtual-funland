@@ -1,5 +1,4 @@
 import { guestsList } from "../../model/guest/GuestsList.js";
-import { parkManager } from "../../model/park/ParkManager.js";
 import { parkSubscription } from "../../model/subscribe/Subscription.js";
 import { seedGuests } from "../guest/guestSeeding.js";
 import { refreshScreen } from "../../view/menu.js";
@@ -30,28 +29,12 @@ export function formLineQueue(obj) {
     console.log("no queue to use");
     return;
   }
-  obj.arr.forEach((guest) => queueToUse.add(guest));
+  obj.arr.forEach((guest) => queueToUse.enqueue(guest));
 }
 
 export async function handleLineRush() {
   const ranks = await seedLines(guestsList.guests);
-  console.log("ranks, ", ranks);
   ranks.forEach((obj) => formLineQueue(obj));
-  parkQueues.log();
   logLines(ranks);
-}
-
-export function parkInitializer() {
-  handleOpeningSeeds();
-  parkManager.open();
-  setTimeout(() => {
-    parkSubscription.notify("initialize");
-  }, 2500);
-  setTimeout(() => {
-    parkManager.start();
-  }, 5000);
-  setTimeout(async () => {
-    handleLineRush();
-  }, 7500);
-  refreshScreen(11000);
+  parkQueues.log();
 }

@@ -1,4 +1,3 @@
-import { juniorManagers } from "../../model/park/ParkJuniors.js";
 import { parkQueues } from "../../model/park/ParkQueues.js";
 import { parkRides } from "../../model/park/ParkRides.js";
 import { Ride } from "../../model/ride/Ride.js";
@@ -26,9 +25,6 @@ export function seedRide(rideObj) {
     if (key.toLowerCase().includes("queue")) {
       parkQueues.add(value);
     }
-    if (key.toLowerCase().includes("manager")) {
-      juniorManagers.add(value);
-    }
   }
 }
 
@@ -36,3 +32,9 @@ export const clcObj = rideInstancesFactory("Command Line Coaster", 2, 10);
 export const fcObj = rideInstancesFactory("Frozen Channel", 5, 10);
 export const mtpObj = rideInstancesFactory("Multi Threaded Processor", 10, 10);
 export const rideInstances = [clcObj, fcObj, mtpObj];
+
+export function initializeParkRides() {
+  rideInstances.forEach((ride) => {
+    parkRides.add(ride);
+  });
+}

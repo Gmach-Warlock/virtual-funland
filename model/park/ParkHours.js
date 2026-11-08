@@ -1,20 +1,13 @@
 export class ParkHours {
-  #rides;
   #isOpen;
   constructor() {
-    this.#rides = [];
     this.#isOpen = false;
   }
 
-  get rides() {
-    return this.#rides;
-  }
   get isOpen() {
     return this.#isOpen;
   }
-  set rides(newRides) {
-    this.#rides = newRides;
-  }
+
   set isOpen(newVal) {
     this.#isOpen = newVal;
   }

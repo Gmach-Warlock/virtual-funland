@@ -6,7 +6,7 @@ import { RideQueue } from "../../model/ride/RideQueue.js";
 
 export function rideInstancesFactory(name, duration, max) {
   const newRide = new Ride(name, duration);
-  const newQueue = new RideQueue(name, max);
+  const newQueue = new RideQueue(name, duration, max);
   const newManager = new RideManager(newRide, newQueue);
   const newObj = {
     [`${name} Ride`]: newRide,

@@ -2,17 +2,26 @@ import { Rider } from "./Rider.js";
 
 export class RideQueue {
   #rideName;
+  #duration;
   #count;
   #max;
   #head = null;
   #tail = null;
+  #interval;
 
-  constructor(rideName, max) {
+  constructor(rideName, duration, max) {
     this.#rideName = rideName;
+    this.#duration = duration;
     this.#max = max;
     this.#count = 0;
   }
 
+  get interval() {
+    return this.#interval;
+  }
+  set interval(newInterval) {
+    this.#interval = newInterval;
+  }
   get head() {
     return this.#head;
   }
@@ -24,6 +33,12 @@ export class RideQueue {
   }
   set rideName(newRidename) {
     this.#rideName = newRidename;
+  }
+  get duration() {
+    return this.#duration;
+  }
+  set duration(newDuration) {
+    this.#duration = newDuration;
   }
   get count() {
     return this.#count;
@@ -63,7 +78,7 @@ export class RideQueue {
   log() {
     let current = this.#head;
     while (current) {
-      console.log(`rider: ${current.name}`);
+      if (current) console.log(`rider: ${current.name}`);
       current = current.next;
     }
   }

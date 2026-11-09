@@ -3,13 +3,15 @@ import { rl } from "../../../view/menu.js";
 import { parkQueues } from "../../../model/park/ParkQueues.js";
 import { registerGuest, removeGuest } from "./guestActions.js";
 import { addToRideLine, checkLine } from "./lineActions.js";
+import { ridesCloser } from "../../park/parkTimers.js";
 
 function viewAttractionDirectory() {
   parkQueues.log();
   mainMenu();
 }
 
-function exitApp() {
+async function exitApp() {
+  ridesCloser();
   console.log(`Thank you for visiting! 
 Please come again!`);
   rl.close();

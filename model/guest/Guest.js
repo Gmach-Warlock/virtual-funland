@@ -25,10 +25,12 @@ export class Guest {
   }
 
   wait() {
+    // console.log(`${this.#name} has started waiting`)
     this.#waiting = true;
   }
 
   stopWaiting() {
+    console.log(`${this.#name} has stopped waiting`);
     this.#waiting = false;
   }
 }

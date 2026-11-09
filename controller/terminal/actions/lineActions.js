@@ -3,6 +3,7 @@ import { parkQueues } from "../../../model/park/ParkQueues.js";
 import { denyAndReturn, mainMenu } from "../../../view/menu.js";
 import { getNumericInput, getStringInput } from "./getInputs.js";
 import { clcObj, fcObj, mtpObj } from "../../ride/rideSeeding.js";
+import { ridePrompts } from "../prompts/responsePrompts.js";
 
 export async function addToRideLine(guest) {
   const ride = await getNumericInput(ridePrompts("add"), 3);

@@ -1,7 +1,7 @@
 import { parkSubscription } from "../../model/subscribe/Subscription.js";
 import { parkManager } from "../../model/park/ParkManager.js";
 import { handleLineRush, handleOpeningSeeds } from "./parkHelpers.js";
-import { refreshScreen } from "../../view/menu.js";
+import { mainMenu, refreshScreen } from "../../view/menu.js";
 import { parkQueues } from "../../model/park/ParkQueues.js";
 
 export function ridesInitializer() {
@@ -10,24 +10,34 @@ export function ridesInitializer() {
     const durationTime = queue.duration;
     queue.interval = setInterval(() => {
       queue.dequeue();
+      mainMenu();
     }, durationTime * 60000);
   });
 }
 
-export function parkInitializer() {
-  handleOpeningSeeds();
-  parkManager.open();
+function seedTimeouts(interval = 2500, extraArr = []) {
+  let step = 4;
   setTimeout(() => {
     parkSubscription.notify("initialize");
-  }, 2500);
+  }, interval);
   setTimeout(() => {
     parkManager.start();
-  }, 5000);
+  }, interval * 2);
   setTimeout(async () => {
     handleLineRush();
     ridesInitializer();
-  }, 7500);
-  refreshScreen(11000);
+  }, interval * 3);
+  extraArr.forEach((callback) => {
+    setTimeout(callback, interval * step);
+    step++;
+  });
+}
+
+export function parkInitializer(interval = 2500, numOfTimeouts = 3) {
+  handleOpeningSeeds();
+  parkManager.open();
+  seedTimeouts();
+  refreshScreen(interval * (numOfTimeouts + 1));
 }
 
 export function ridesCloser() {
@@ -36,4 +46,10 @@ export function ridesCloser() {
       clearInterval(queue.interval);
     }
   });
+}
+
+export function keepLinesRunning() {
+  setInterval(() => {
+    console.log(`need to setup for new line entries`);
+  }, 60000);
 }

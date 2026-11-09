@@ -22,7 +22,16 @@ export class GuestsList {
   }
 
   removeGuest(gToDelete) {
+    console.log("removing", gToDelete);
     this.#guests = removeItemFromArray(this.#guests, gToDelete);
+  }
+  findGuest(name) {
+    const guest = this.#guests.find((guest) => guest.name === name);
+    if (!guest) {
+      console.log("no guest with that name (GuestList class)");
+      return;
+    }
+    return guest;
   }
 
   setGuests(newGuests) {

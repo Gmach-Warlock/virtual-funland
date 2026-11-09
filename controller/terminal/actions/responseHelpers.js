@@ -4,6 +4,7 @@ import { parkQueues } from "../../../model/park/ParkQueues.js";
 import { registerGuest, removeGuest } from "./guestActions.js";
 import { addToRideLine, checkLine } from "./lineActions.js";
 import { ridesCloser } from "../../park/parkTimers.js";
+import { viewGuestDirectory } from "./guestActions.js";
 
 function viewAttractionDirectory() {
   parkQueues.log();

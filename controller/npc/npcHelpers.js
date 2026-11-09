@@ -1,3 +1,4 @@
+import { guestsList } from "../../model/guest/GuestsList.js";
 import { waitingLinePrompt } from "../terminal/prompts/linePrompts.js";
 import { lineRushPrompt } from "../terminal/prompts/ridePrompts.js";
 
@@ -53,7 +54,7 @@ export function rankLines(linesObj) {
   return ordered;
 }
 
-export async function seedLines(arr) {
+export async function seedLines(arr = guestsList.guests) {
   const linesObj = await splitUpParty(arr);
   const ranks = rankLines(linesObj);
   return ranks;

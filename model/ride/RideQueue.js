@@ -1,3 +1,4 @@
+import { guestsList } from "../guest/GuestsList.js";
 import { Rider } from "./Rider.js";
 
 export class RideQueue {
@@ -64,15 +65,24 @@ export class RideQueue {
     if (temp) this.#tail = newRider;
     temp.next = newRider;
     this.#count++;
+    guest.wait();
   }
 
   dequeue() {
+    if (this.#head === null) {
+      console.log(
+        `There are no more people in the line for ${this.#head.name}!`,
+      );
+      return;
+    }
     console.log(
-      `It's now ${this.#head.name}'s turn to ride the ${this.#rideName}`,
+      `
+It's now ${this.#head.name}'s turn to ride the ${this.#rideName}`,
     );
-
+    const removedGuest = guestsList.findGuest(this.#head.name);
     this.#head = this.#head.next;
     this.#count--;
+    if (removedGuest) removedGuest.stopWaiting();
   }
 
   log() {

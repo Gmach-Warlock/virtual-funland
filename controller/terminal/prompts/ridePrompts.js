@@ -1,9 +1,10 @@
-export function openRidePrompt(name, duration) {
+export function openRidePrompt(name, duration, max) {
   console.log(`
            Attention Guests, 
 ${name} is now open to ride!! 
         Everyone come on down!! 
-The length of the attraction is ${duration} minutes
+The length of the attraction is ${duration} minute${duration > 1 ? "s" : ""}.
+It has a maximum line capacity of ${max} people.
         `);
 }
 

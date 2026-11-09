@@ -25,6 +25,17 @@ export class ParkQueues {
     this.#queues = addItemToArray(this.#queues, queue);
   }
 
+  find(rideName) {
+    const queueToReturn = this.#queues.find(
+      (queue) => queue.rideName === rideName,
+    );
+    if (!queueToReturn) {
+      console.log("bad rideName for queue");
+      return;
+    }
+    return queueToReturn;
+  }
+
   log() {
     console.log(`Rides and their current riders. `);
     this.#queues.forEach((queue) => {

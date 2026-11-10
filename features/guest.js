@@ -1,12 +1,11 @@
 import { Guest } from "../model/guest/Guest.js";
 import { guestsList } from "../model/guest/GuestsList.js";
-import { pullRandomsByAmount } from "../controller/general/RNGHelpers.js";
-import { getStringInput } from "../controller/general/validation.js";
-import { itemExists } from "../controller/general/validation.js";
+import { pullRandomsByAmount } from "../controller/RNGHelpers.js";
+import { getStringInput, itemExists } from "../controller/validation.js";
 import { denyAndReturn, mainMenu } from "../view/menu.js";
 import { parkUpdater } from "./park.js";
 import { randomGuests, theRegulars } from "../assets/guestNames.js";
-import { guestPrompt } from "../controller/terminal/prompts.js";
+import { guestPrompt } from "../controller/prompts.js";
 
 function createGuests() {
   const regulars = theRegulars.map((name) => new Guest(name));

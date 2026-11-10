@@ -1,4 +1,4 @@
-import { askQuestion } from "../../view/menu.js";
+import { askQuestion } from "../view/menu.js";
 
 export function itemExists(arr, prop, value) {
   if (!Array.isArray(arr) || !value) return false;

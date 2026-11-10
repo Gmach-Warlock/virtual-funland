@@ -1,5 +1,28 @@
-import { addItemToArray } from "../../controller/general/CRUDHelpers.js";
-import { parkQueuesLogHelper } from "../../controller/terminal/actions/logHelpers.js";
+import { addItemToArray } from "../../controller/CRUDHelpers.js";
+
+function parkQueueLogStartPrompt() {
+  console.log(`Rides and their current riders
+        `);
+}
+
+function parkQueuesLogHelper(queues) {
+  parkQueueLogStartPrompt();
+  queues.forEach((queue) => {
+    console.log(`= = = = = = = = = = = = = = = = = = = = =
+${queue.rideName}
+      `);
+    let current = queue.head;
+    while (current) {
+      console.log(`${current.name}`);
+      current = current.next;
+    }
+    console.log(
+      `       
+Total Wait Time: ${queue.duration * queue.count} minutes`,
+    );
+  });
+  console.log(`= = = = = = = = = = = = = = = = = = = = =`);
+}
 
 export class ParkQueues {
   static #instance;

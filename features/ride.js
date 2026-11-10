@@ -22,6 +22,11 @@ ${rideName} has now started.
 ${guest.next.name} has boarded the ride,  and ${guest.name} is now departing. `);
 }
 
+export function viewAttractionDirectory() {
+  parkQueues.log();
+  mainMenu();
+}
+
 function rideInstancesFactory(name, duration, max) {
   const newRide = new Ride(name, duration, max);
   const newQueue = new RideQueue(name, duration, max);

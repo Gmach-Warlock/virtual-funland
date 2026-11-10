@@ -1,12 +1,10 @@
 import { guestsList } from "../model/guest/GuestsList.js";
 import { parkQueues } from "../model/park/ParkQueues.js";
 import { denyAndReturn, mainMenu } from "../view/menu.js";
-import {
-  getStringInput,
-  getNumericInput,
-} from "../controller/general/validation.js";
+import { getStringInput, getNumericInput } from "../controller/validation.js";
 import { clcObj, fcObj, mtpObj } from "./ride.js";
-import { ridePrompts } from "../controller/terminal/prompts.js";
+import { ridePrompts } from "../controller/prompts.js";
+import { rng } from "../controller/RNGHelpers.js";
 
 export async function addToRideLine(guest) {
   const ride = await getNumericInput(ridePrompts("add"), 3);
@@ -61,4 +59,61 @@ export function waitingLinePrompt(obj) {
     `are lined up.
   `,
   );
+}
+
+async function splitUpParty(arr) {
+  const clcNPCs = [];
+  const fcNPCs = [];
+  const mtpNPCs = [];
+  const arrayObj = {
+    0: clcNPCs,
+    1: fcNPCs,
+    2: mtpNPCs,
+  };
+  arr.forEach((guest) => {
+    arrayObj[String(rng(3))].push(guest);
+  });
+  const obj = {
+    clcNPCs,
+    fcNPCs,
+    mtpNPCs,
+  };
+  return obj;
+}
+
+function creaateUnorderedRanks(linesObj) {
+  const clc = {
+    name: "Command Line Coaster",
+    len: linesObj.clcNPCs.length,
+    arr: linesObj.clcNPCs,
+  };
+  const fc = {
+    name: "Frozen Channel",
+    len: linesObj.fcNPCs.length,
+    arr: linesObj.fcNPCs,
+  };
+  const mtp = {
+    name: "Multi Threaded Processor",
+    len: linesObj.mtpNPCs.length,
+    arr: linesObj.mtpNPCs,
+  };
+  const unordered = [clc, fc, mtp];
+  return unordered;
+}
+
+function rankLines(linesObj) {
+  const unordered = creaateUnorderedRanks(linesObj);
+  const ordered = unordered.sort((a, b) => b.len - a.len);
+  return ordered;
+}
+
+export async function seedLines(arr = guestsList.guests) {
+  const linesObj = await splitUpParty(arr);
+  const ranks = rankLines(linesObj);
+  return ranks;
+}
+
+export function logLines(ordered) {
+  lineRushPrompt();
+  ordered.forEach((obj) => waitingLinePrompt(obj));
 }

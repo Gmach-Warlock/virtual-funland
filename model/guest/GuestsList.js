@@ -1,9 +1,21 @@
 import {
   addItemToArray,
   removeItemFromArray,
-} from "../../controller/general/CRUDHelpers.js";
+} from "../../controller/CRUDHelpers.js";
 import { findGuestHelper } from "../../features/guest.js";
-import { guestListLogHelper } from "../../controller/terminal/actions/logHelpers.js";
+import { guestPrompt } from "../../controller/prompts.js";
+
+function guestListLogHelper(type, guests) {
+  if (type === "initialize") console.log(guestPrompt(type));
+
+  if (type !== "initiliaze")
+    console.log(`Here are the current Guests
+      `);
+  console.log(`Guests List: `);
+  guests.forEach((guest) => {
+    if (guest) console.log(`Guest: `, guest.name);
+  });
+}
 
 export class GuestsList {
   #guests;

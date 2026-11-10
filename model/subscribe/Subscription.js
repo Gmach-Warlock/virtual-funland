@@ -1,4 +1,4 @@
-import { addItemToArray } from "../../controller/general/CRUDHelpers.js";
+import { addItemToArray } from "../../controller/CRUDHelpers.js";
 import {
   changeSubscriber,
   logSubscriber,

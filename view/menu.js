@@ -1,10 +1,14 @@
 import readline from "node:readline";
-import { respondToMainMenu } from "../controller/terminal/actions/responseHelpers.js";
+import { openingGreeting, openingMenu } from "../controller/prompts.js";
+import { getNumericInput } from "../controller/validation.js";
 import {
-  openingGreeting,
-  openingMenu,
-} from "../controller/terminal/prompts.js";
-import { getNumericInput } from "../controller/general/validation.js";
+  registerGuest,
+  removeGuest,
+  viewGuestDirectory,
+} from "../features/guest.js";
+import { addToRideLine, checkLine } from "../features/line.js";
+import { viewAttractionDirectory } from "../features/ride.js";
+import { exitApp } from "../features/park.js";
 
 export const rl = readline.createInterface({
   input: process.stdin,
@@ -17,6 +21,20 @@ export function askQuestion(question) {
       resolve(answer);
     });
   });
+}
+
+export async function respondToMainMenu(stringedNumber) {
+  const number = Number(stringedNumber);
+  const lookup = {
+    1: () => registerGuest(),
+    2: () => removeGuest(),
+    3: () => viewGuestDirectory(),
+    4: () => addToRideLine(),
+    5: () => checkLine(),
+    6: () => viewAttractionDirectory(),
+    7: () => exitApp(),
+  };
+  return lookup[number]();
 }
 
 export async function mainMenu() {

@@ -1,4 +1,4 @@
-import { guestPrompt } from "../prompts/responsePrompts.js";
+import { guestPrompt } from "../prompts.js";
 
 export function parkQueueLogStartPrompt() {
   console.log(`Rides and their current riders

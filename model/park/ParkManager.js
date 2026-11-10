@@ -1,6 +1,8 @@
-import { closeParkPrompt } from "../../controller/terminal/prompts/closingPrompts.js";
-import { openParkPrompt } from "../../controller/terminal/prompts/openingPrompts.js";
 import { parkRides } from "./ParkRides.js";
+import {
+  openParkPrompt,
+  closeParkPrompt,
+} from "../../controller/terminal/prompts.js";
 
 export class ParkManager {
   #guests;

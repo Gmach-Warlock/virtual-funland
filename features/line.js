@@ -1,9 +1,12 @@
-import { guestsList } from "../../../model/guest/GuestsList.js";
-import { parkQueues } from "../../../model/park/ParkQueues.js";
-import { denyAndReturn, mainMenu } from "../../../view/menu.js";
-import { getNumericInput, getStringInput } from "./getInputs.js";
-import { clcObj, fcObj, mtpObj } from "../../ride/rideSeeding.js";
-import { ridePrompts } from "../prompts/responsePrompts.js";
+import { guestsList } from "../model/guest/GuestsList.js";
+import { parkQueues } from "../model/park/ParkQueues.js";
+import { denyAndReturn, mainMenu } from "../view/menu.js";
+import {
+  getStringInput,
+  getNumericInput,
+} from "../controller/general/validation.js";
+import { clcObj, fcObj, mtpObj } from "./ride.js";
+import { ridePrompts } from "../controller/terminal/prompts.js";
 
 export async function addToRideLine(guest) {
   const ride = await getNumericInput(ridePrompts("add"), 3);
@@ -37,4 +40,25 @@ export async function addToRideLine(guest) {
 export function checkLine() {
   parkQueues.log();
   mainMenu();
+}
+
+export function lineRushPrompt() {
+  console.log(`
+The current guests race to their favorite rides!
+`);
+}
+
+export function waitingLinePrompt(obj) {
+  console.log(`The ${obj.name} has ${obj.len} people in line after the rush. `);
+  const names = [];
+  obj.arr.forEach((guest) => {
+    names.push(guest.name);
+  });
+  names[names.length - 1] = `and ${names[names.length - 1]}`;
+  const string = names.join(`, `);
+  console.log(
+    string,
+    `are lined up.
+  `,
+  );
 }

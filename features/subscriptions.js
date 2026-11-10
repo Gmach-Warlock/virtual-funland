@@ -1,5 +1,13 @@
-import { guestsList } from "../../model/guest/GuestsList.js";
-import { parkBanner } from "../terminal/prompts/bannerPrompts.js";
+import { guestsList } from "../model/guest/GuestsList.js";
+
+const parkBanner = `
+              <---- Virtually Fun Land ---->
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+|     |     |     |     |     |     |     |     |     |     
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+            <---- Virtually Entertaining ---->
+
+`;
 
 export function logSubscriber(type) {
   guestsList.logGuests(type);

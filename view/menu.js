@@ -3,8 +3,8 @@ import { respondToMainMenu } from "../controller/terminal/actions/responseHelper
 import {
   openingGreeting,
   openingMenu,
-} from "../controller/terminal/prompts/openingPrompts.js";
-import { getNumericInput } from "../controller/terminal/actions/getInputs.js";
+} from "../controller/terminal/prompts.js";
+import { getNumericInput } from "../controller/general/validation.js";
 
 export const rl = readline.createInterface({
   input: process.stdin,

@@ -1,9 +1,9 @@
-import { parkSubscription } from "../../model/subscribe/Subscription.js";
-import { seedGuests } from "../guest/guestSeeding.js";
-import { refreshScreen } from "../../view/menu.js";
-import { logLines, seedLines } from "../npc/npcHelpers.js";
-import { seedQueues, seedRiders } from "../ride/rideSeeding.js";
-import { parkQueues } from "../../model/park/ParkQueues.js";
+import { parkQueues } from "../model/park/ParkQueues.js";
+import { parkSubscription } from "../model/subscribe/Subscription.js";
+import { seedGuests } from "./guest.js";
+import { seedQueues, seedRiders } from "./ride.js";
+import { refreshScreen } from "../view/menu.js";
+import { logLines, seedLines } from "../controller/npc/npcHelpers.js";
 
 export function parkUpdater(reason) {
   parkSubscription.notify(reason);
@@ -16,7 +16,7 @@ export async function handleOpeningSeeds() {
   seedQueues();
 }
 
-export function formLineQueue(obj) {
+function formLineQueue(obj) {
   const queueToUse = parkQueues.queues.find(
     (queue) => queue.rideName === obj.name,
   );

@@ -1,3 +1,5 @@
+import { askQuestion } from "../../view/menu.js";
+
 export function itemExists(arr, prop, value) {
   if (!Array.isArray(arr) || !value) return false;
   if (!arr.some((item) => item[prop] === value)) {
@@ -37,4 +39,26 @@ export function checkStringInput(answer, numGuard) {
       return false;
     }
   return true;
+}
+
+export async function getNumericInput(question, max = 6) {
+  let answer;
+  let answered = false;
+  while (!answered) {
+    answer = await askQuestion(question);
+    if (!checkNumericInput(answer, max)) continue;
+    answered = true;
+  }
+  return answer;
+}
+
+export async function getStringInput(question, numGuard = true) {
+  let answer;
+  let answered = false;
+  while (!answered) {
+    answer = await askQuestion(question);
+    if (!checkStringInput(answer, numGuard)) continue;
+    answered = true;
+  }
+  return answer;
 }

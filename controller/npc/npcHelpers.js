@@ -1,6 +1,5 @@
 import { guestsList } from "../../model/guest/GuestsList.js";
-import { waitingLinePrompt } from "../terminal/prompts/linePrompts.js";
-import { lineRushPrompt } from "../terminal/prompts/ridePrompts.js";
+import { lineRushPrompt, waitingLinePrompt } from "../../features/line.js";
 import { rng } from "../general/RNGHelpers.js";
 
 export async function formLine(guestsArr, queue) {

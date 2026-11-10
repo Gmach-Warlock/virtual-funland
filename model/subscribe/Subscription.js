@@ -3,7 +3,7 @@ import {
   changeSubscriber,
   logSubscriber,
   subscribersArr,
-} from "../../controller/subscription/subscribers.js";
+} from "../../features/subscriptions.js";
 
 export class Subscription {
   #subscribers;

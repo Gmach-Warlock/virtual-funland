@@ -1,5 +1,8 @@
+import {
+  rideQueueEnqueueHelper,
+  rideQueueDequeueHelper,
+} from "../../features/ride.js";
 import { guestsList } from "../guest/GuestsList.js";
-import { Rider } from "./Rider.js";
 
 export class RideQueue {
   #rideName;
@@ -26,8 +29,14 @@ export class RideQueue {
   get head() {
     return this.#head;
   }
+  set head(newHead) {
+    this.#head = newHead;
+  }
   get tail() {
     return this.#tail;
+  }
+  set tail(newTail) {
+    this.#tail = newTail;
   }
   get rideName() {
     return this.#rideName;
@@ -47,26 +56,15 @@ export class RideQueue {
   set count(newCount) {
     this.#count = newCount;
   }
+  get max() {
+    return this.#max;
+  }
+  set max(newMax) {
+    this.#max = newMax;
+  }
 
   enqueue(guest) {
-    // we have a decouple but it's not adding to ridequeus??
-    if (this.#count === this.#max) {
-      console.log(
-        `The line is currently full for ${this.#rideName}. Please try again later.`,
-      );
-    }
-    const newRider = new Rider(guest.name);
-    if (this.#head === null && this.#tail === null) {
-      this.#head = newRider;
-      this.#tail = newRider;
-    }
-    if (this.#head !== null && this.#tail !== null) {
-      const temp = this.#tail;
-      if (temp) this.#tail = newRider;
-      temp.next = newRider;
-    }
-
-    this.#count++;
+    rideQueueEnqueueHelper(guest, this);
     guest.wait();
   }
 

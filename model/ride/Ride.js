@@ -1,5 +1,5 @@
-import { openRidePrompt } from "../../controller/terminal/prompts/ridePrompts.js";
 import { parkQueues } from "../park/ParkQueues.js";
+import { openRidePrompt } from "../../features/ride.js";
 
 export class Ride {
   #name;

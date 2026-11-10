@@ -1,10 +1,13 @@
+import { parkQueues } from "../../../model/park/ParkQueues.js";
 import { mainMenu } from "../../../view/menu.js";
 import { rl } from "../../../view/menu.js";
-import { parkQueues } from "../../../model/park/ParkQueues.js";
-import { registerGuest, removeGuest } from "./guestActions.js";
-import { addToRideLine, checkLine } from "./lineActions.js";
-import { ridesCloser } from "../../park/parkTimers.js";
-import { viewGuestDirectory } from "./guestActions.js";
+import {
+  registerGuest,
+  removeGuest,
+  viewGuestDirectory,
+} from "../../../features/guest.js";
+import { addToRideLine, checkLine } from "../../../features/line.js";
+import { ridesCloser } from "../../../features/timers.js";
 
 function viewAttractionDirectory() {
   parkQueues.log();

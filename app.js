@@ -1,3 +1,3 @@
-import { parkInitializer } from "./controller/park/parkTimers.js";
+import { parkInitializer } from "./features/timers.js";
 
 parkInitializer();

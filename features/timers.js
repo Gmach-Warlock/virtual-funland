@@ -1,10 +1,9 @@
-import { parkSubscription } from "../../model/subscribe/Subscription.js";
-import { parkManager } from "../../model/park/ParkManager.js";
-import { handleLineRush, handleOpeningSeeds } from "./parkHelpers.js";
-import { mainMenu, refreshScreen } from "../../view/menu.js";
-import { parkQueues } from "../../model/park/ParkQueues.js";
-import { returnPotentialRiders } from "../ride/rideHelpers.js";
-import { dequeueRiderPrompt } from "../terminal/prompts/ridePrompts.js";
+import { parkQueues } from "../model/park/ParkQueues.js";
+import { parkSubscription } from "../model/subscribe/Subscription.js";
+import { parkManager } from "../model/park/ParkManager.js";
+import { mainMenu, refreshScreen } from "../view/menu.js";
+import { dequeueRiderPrompt, returnPotentialRiders } from "./ride.js";
+import { handleLineRush, handleOpeningSeeds } from "./park.js";
 
 export async function ridesInitializer() {
   console.log("All of the rides are moving with normal wait times");

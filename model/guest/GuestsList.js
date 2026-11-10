@@ -2,7 +2,7 @@ import {
   addItemToArray,
   removeItemFromArray,
 } from "../../controller/general/CRUDHelpers.js";
-import { findGuestHelper } from "../../controller/guest/guestHelpers.js";
+import { findGuestHelper } from "../../features/guest.js";
 import { guestListLogHelper } from "../../controller/terminal/actions/logHelpers.js";
 
 export class GuestsList {

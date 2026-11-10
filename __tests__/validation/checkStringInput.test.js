@@ -1,6 +1,7 @@
 import { describe, it } from "node:test";
 import assert from "node:assert";
-import { checkStringInput } from "../../controller/general/validation.js";
+import { checkStringInput } from "../../controller/validation.js";
+import { rl } from "../../view/menu.js";
 
 describe("checkStringInput", () => {
   it("should return false if the param is bad", () => {
@@ -26,5 +27,6 @@ describe("checkStringInput", () => {
     const result = checkStringInput(good, numBool);
     // assert
     assert.strictEqual(result, true);
+    rl.close();
   });
 });

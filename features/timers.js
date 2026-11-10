@@ -1,5 +1,5 @@
 import { parkQueues } from "../model/park/ParkQueues.js";
-import { parkSubscription } from "../model/subscribe/Subscription.js";
+import { guestSubscription } from "../model/guest/GuestSubscription.js";
 import { parkManager } from "../model/park/ParkManager.js";
 import { mainMenu, refreshScreen } from "../view/menu.js";
 import { dequeueRiderPrompt, returnPotentialRiders } from "./ride.js";
@@ -10,7 +10,7 @@ export async function ridesInitializer() {
 
   parkQueues.queues.forEach((queue) => {
     const durationTime = queue.duration;
-    queue.interval = setInterval(() => {
+    queue.ride.interval = setInterval(() => {
       dequeueRiderPrompt(queue.rideName, queue.head);
       queue.dequeue();
       mainMenu();
@@ -21,7 +21,7 @@ export async function ridesInitializer() {
 function seedTimeouts(interval = 2500, extraArr = []) {
   let step = 4;
   setTimeout(() => {
-    parkSubscription.notify("initialize");
+    guestSubscription.notify("initialize");
   }, interval);
   setTimeout(() => {
     parkManager.start();
@@ -45,8 +45,8 @@ export function parkInitializer(interval = 2000, numOfTimeouts = 3) {
 
 export function ridesCloser() {
   parkQueues.queues.forEach((queue) => {
-    if (queue.interval !== null) {
-      clearInterval(queue.interval);
+    if (queue.ride.interval !== null) {
+      clearInterval(queue.ride.interval);
     }
   });
 }

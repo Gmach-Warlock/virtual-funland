@@ -1,6 +1,8 @@
 import { describe, it } from "node:test";
 import assert from "node:assert";
-import { itemExists } from "../../controller/general/validation.js";
+import { itemExists } from "../../controller/validation.js";
+import { rl } from "../../view/menu.js";
+
 describe("itemExists", () => {
   it("should return false if the item doesn't exist or if the params are bad", () => {
     // arrange
@@ -27,4 +29,5 @@ describe("itemExists", () => {
     // assert
     assert.strictEqual(result, true);
   });
+  rl.close();
 });

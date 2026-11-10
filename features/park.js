@@ -1,25 +1,26 @@
 import { parkQueues } from "../model/park/ParkQueues.js";
-import { parkSubscription } from "../model/subscribe/Subscription.js";
+import { guestSubscription } from "../model/guest/GuestSubscription.js";
 import { seedGuests } from "./guest.js";
-import { seedQueues, seedRiders } from "./ride.js";
+import { seedCounters, seedQueues, seedRiders } from "./ride.js";
 import { rl, refreshScreen } from "../view/menu.js";
 import { logLines, seedLines } from "./line.js";
 import { ridesCloser } from "./timers.js";
 
 export function parkUpdater(reason) {
-  parkSubscription.notify(reason);
-  refreshScreen(2000, true);
+  guestSubscription.notify(reason);
+  refreshScreen(2000);
 }
 
 export async function handleOpeningSeeds() {
   seedGuests();
   seedRiders();
   seedQueues();
+  seedCounters();
 }
 
 function formLineQueue(obj) {
   const queueToUse = parkQueues.queues.find(
-    (queue) => queue.rideName === obj.name,
+    (queue) => queue.ride.name === obj.name,
   );
 
   if (!queueToUse) {

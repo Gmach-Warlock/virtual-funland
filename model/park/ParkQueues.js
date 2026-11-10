@@ -9,7 +9,7 @@ function parkQueuesLogHelper(queues) {
   parkQueueLogStartPrompt();
   queues.forEach((queue) => {
     console.log(`= = = = = = = = = = = = = = = = = = = = =
-${queue.rideName}
+${queue.ride.name}
       `);
     let current = queue.head;
     while (current) {
@@ -18,7 +18,7 @@ ${queue.rideName}
     }
     console.log(
       `       
-Total Wait Time: ${queue.duration * queue.count} minutes`,
+Total Wait Time: ${queue.duration * queue.counter.count} minutes`,
     );
   });
   console.log(`= = = = = = = = = = = = = = = = = = = = =`);
@@ -51,7 +51,7 @@ export class ParkQueues {
 
   find(rideName) {
     const queueToReturn = this.#queues.find(
-      (queue) => queue.rideName === rideName,
+      (queue) => queue.ride.name === rideName,
     );
     if (!queueToReturn) {
       console.log("bad rideName for queue");

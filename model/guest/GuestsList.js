@@ -41,7 +41,6 @@ export class GuestsList {
   }
 
   removeGuest(gToDelete) {
-    console.log("removing", gToDelete);
     this.#guests = removeItemFromArray(this.#guests, gToDelete);
   }
   findGuest(name) {

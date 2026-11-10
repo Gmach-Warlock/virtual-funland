@@ -1,31 +1,48 @@
-import {
-  rideQueueEnqueueHelper,
-  rideQueueDequeueHelper,
-} from "../../features/ride.js";
 import { guestsList } from "../guest/GuestsList.js";
+import { Rider } from "./Rider.js";
+
+function rideQueueEnqueueHelper(guest, queue) {
+  if (queue.counter.count === queue.counter.max) {
+    console.log(
+      `The line is currently full for ${queue.rideName}. Please try again later.`,
+    );
+  }
+  const newRider = new Rider(guest.name);
+  if (queue.head === null && queue.tail === null) {
+    queue.head = newRider;
+    queue.tail = newRider;
+  }
+  if (queue.head !== null && queue.tail !== null) {
+    const temp = queue.tail;
+    if (temp) queue.tail = newRider;
+    temp.next = newRider;
+  }
+
+  queue.counter.count++;
+}
+
+function rideQueueDequeueHelper(queue) {
+  if (queue.head === null) {
+    console.log(`There are no more people in the line for ${queue.ride.name}!`);
+    return;
+  }
+  const removedGuest = guestsList.findGuest(queue.head.name);
+  queue.head = queue.head.next;
+  queue.counter.count--;
+  if (removedGuest) removedGuest.stopWaiting();
+}
 
 export class RideQueue {
-  #rideName;
+  #ride;
   #duration;
-  #count;
-  #max;
+  #counter;
   #head = null;
   #tail = null;
-  #interval;
 
-  constructor(rideName, duration, max) {
-    this.#rideName = rideName;
+  constructor(duration) {
     this.#duration = duration;
-    this.#max = max;
-    this.#count = 0;
   }
 
-  get interval() {
-    return this.#interval;
-  }
-  set interval(newInterval) {
-    this.#interval = newInterval;
-  }
   get head() {
     return this.#head;
   }
@@ -38,11 +55,11 @@ export class RideQueue {
   set tail(newTail) {
     this.#tail = newTail;
   }
-  get rideName() {
-    return this.#rideName;
+  get ride() {
+    return this.#ride;
   }
-  set rideName(newRidename) {
-    this.#rideName = newRidename;
+  set ride(newRide) {
+    this.#ride = newRide;
   }
   get duration() {
     return this.#duration;
@@ -50,17 +67,11 @@ export class RideQueue {
   set duration(newDuration) {
     this.#duration = newDuration;
   }
-  get count() {
-    return this.#count;
+  get counter() {
+    return this.#counter;
   }
-  set count(newCount) {
-    this.#count = newCount;
-  }
-  get max() {
-    return this.#max;
-  }
-  set max(newMax) {
-    this.#max = newMax;
+  set counter(newCounter) {
+    this.#counter = newCounter;
   }
 
   enqueue(guest) {
@@ -69,17 +80,7 @@ export class RideQueue {
   }
 
   dequeue() {
-    // need to decouple
-    if (this.#head === null) {
-      console.log(
-        `There are no more people in the line for ${this.#rideName}!`,
-      );
-      return;
-    }
-    const removedGuest = guestsList.findGuest(this.#head.name);
-    this.#head = this.#head.next;
-    this.#count--;
-    if (removedGuest) removedGuest.stopWaiting();
+    rideQueueDequeueHelper(this);
   }
 
   log() {

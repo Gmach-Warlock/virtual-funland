@@ -6,16 +6,18 @@ export class Ride {
   #isRunning;
   #duration;
   #interval;
-  #max;
-  constructor(name, duration, max) {
+  #counter;
+  constructor(name, duration) {
     this.#name = name;
     this.#duration = duration;
-    this.#max = max;
     this.#isRunning = false;
     this.#interval = null;
   }
   get interval() {
     return this.#interval;
+  }
+  set interval(newInterval) {
+    this.#interval = newInterval;
   }
   get name() {
     return this.#name;
@@ -23,11 +25,11 @@ export class Ride {
   get duration() {
     return this.#duration;
   }
-  get max() {
-    return this.#max;
+  get counter() {
+    return this.#counter;
   }
-  set max(newMax) {
-    this.#max = newMax;
+  set counter(newCounter) {
+    this.#counter = newCounter;
   }
   get isRunning() {
     return this.#isRunning;
@@ -41,7 +43,7 @@ export class Ride {
     let max;
     const queueToUse = parkQueues.find(this.name);
     if (queueToUse) max = queueToUse.max;
-    openRidePrompt(this.#name, this.#duration, this.#max ?? 10);
+    openRidePrompt(this.#name, this.#duration, max ?? 10);
     this.#isRunning = true;
   }
 

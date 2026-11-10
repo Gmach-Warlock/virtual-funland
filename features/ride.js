@@ -3,9 +3,11 @@ import { parkRides } from "../model/park/ParkRides.js";
 import { Ride } from "../model/ride/Ride.js";
 import { RideManager } from "../model/ride/RideManager.js";
 import { RideQueue } from "../model/ride/RideQueue.js";
-import { Rider } from "../model/ride/Rider.js";
 import { guestsList } from "../model/guest/GuestsList.js";
+import { RideCounter } from "../model/ride/RideCounter.js";
+import { parkCounters } from "../model/park/ParkCounters.js";
 
+// prompts
 export function openRidePrompt(name, duration, max) {
   console.log(`
            Attention Guests, 
@@ -15,24 +17,28 @@ The length of the attraction is ${duration} minute${duration > 1 ? "s" : ""}.
 It has a maximum line capacity of ${max} people.
         `);
 }
-
 export function dequeueRiderPrompt(rideName, guest) {
   console.log(`
 ${rideName} has now started. 
 ${guest.next.name} has boarded the ride,  and ${guest.name} is now departing. `);
 }
-
 export function viewAttractionDirectory() {
   parkQueues.log();
   mainMenu();
 }
 
+// factory & seed
 function rideInstancesFactory(name, duration, max) {
-  const newRide = new Ride(name, duration, max);
-  const newQueue = new RideQueue(name, duration, max);
-  const newManager = new RideManager(newRide, newQueue);
+  const newRide = new Ride(name, duration);
+  const newCounter = new RideCounter(newRide, max);
+  const newQueue = new RideQueue(duration);
+  newRide.counter = newCounter;
+  newQueue.counter = newCounter;
+  newQueue.ride = newRide;
+  const newManager = new RideManager(newRide, newQueue, newCounter);
   const newObj = {
     [`${name} Ride`]: newRide,
+    [`${name} Counter`]: newCounter,
     [`${name} Queue`]: newQueue,
     [`${name} Manager`]: newManager,
   };
@@ -43,7 +49,7 @@ export const clcObj = rideInstancesFactory("Command Line Coaster", 1, 20);
 export const fcObj = rideInstancesFactory("Frozen Channel", 2, 15);
 export const mtpObj = rideInstancesFactory("Multi Threaded Processor", 3, 25);
 export const rideInstances = [clcObj, fcObj, mtpObj];
-
+// seeds
 function seedRide(rideObj) {
   for (const key of Object.keys(rideObj)) {
     const value = rideObj[key];
@@ -52,16 +58,22 @@ function seedRide(rideObj) {
     }
   }
 }
-
-function seedQueue(ridObj) {
-  for (const key of Object.keys(ridObj)) {
-    const value = ridObj[key];
+function seedQueue(rideObj) {
+  for (const key of Object.keys(rideObj)) {
+    const value = rideObj[key];
     if (key.toLowerCase().includes("queue")) {
       parkQueues.add(value);
     }
   }
 }
-
+function seedCounter(rideObj) {
+  for (const key of Object.keys(rideObj)) {
+    const value = rideObj[key];
+    if (key.toLowerCase().includes("counter")) {
+      parkCounters.add(value);
+    }
+  }
+}
 export function seedRiders() {
   rideInstances.forEach((obj) => {
     seedRide(obj);
@@ -74,6 +86,12 @@ export function seedQueues() {
   });
 }
 
+export function seedCounters() {
+  rideInstances.forEach((obj) => {
+    seedCounter(obj);
+  });
+}
+
 export function returnPotentialRiders() {
   const arr = guestsList.guests;
   if (!arr.some((guest) => guest.waiting === false)) {
@@ -82,35 +100,4 @@ export function returnPotentialRiders() {
   }
   const potentialRiders = arr.filter((guest) => guest.waiting === false);
   return potentialRiders;
-}
-
-export function rideQueueEnqueueHelper(guest, queue) {
-  if (queue.count === queue.max) {
-    console.log(
-      `The line is currently full for ${queue.rideName}. Please try again later.`,
-    );
-  }
-  const newRider = new Rider(guest.name);
-  if (queue.head === null && queue.tail === null) {
-    queue.head = newRider;
-    queue.tail = newRider;
-  }
-  if (queue.head !== null && queue.tail !== null) {
-    const temp = queue.tail;
-    if (temp) queue.tail = newRider;
-    temp.next = newRider;
-  }
-
-  queue.count++;
-}
-
-export function rideQueueDequeueHelper(queue) {
-  if (queue.head === null) {
-    console.log(`There are no more people in the line for ${queue.rideName}!`);
-    return;
-  }
-  const removedGuest = guestsList.findGuest(queue.head.name);
-  queue.head = queue.head.next;
-  queue.count--;
-  if (removedGuest) removedGuest.stopWaiting();
 }

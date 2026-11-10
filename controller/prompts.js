@@ -12,6 +12,15 @@ export function openParkPrompt() {
 Please make your way forward and head into the admission lines. `);
 }
 
+export const parkBanner = `
+              <---- Virtually Fun Land ---->
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+|     |     |     |     |     |     |     |     |     |     
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+            <---- Virtually Entertaining ---->
+
+`;
+
 export function openingGreeting() {
   console.log(`
 Welcome to Virtually Fun Land, virtually fun for everyone. `);

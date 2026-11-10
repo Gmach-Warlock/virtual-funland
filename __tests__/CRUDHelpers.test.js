@@ -3,7 +3,7 @@ import assert from "node:assert";
 import {
   addItemToArray,
   removeItemFromArray,
-} from "../controller/general/CRUDHelpers.js";
+} from "../controller/CRUDHelpers.js";
 
 describe("addItemToArray", () => {
   it("should early return with the original array if the arr param is not of proper type or if the item is missing", () => {

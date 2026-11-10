@@ -1,6 +1,7 @@
 import { describe, it } from "node:test";
 import assert from "node:assert";
-import { checkNumericInput } from "../../controller/general/validation.js";
+import { checkNumericInput } from "../../controller/validation.js";
+import { rl } from "../../view/menu.js";
 
 describe("checkNumericInput", () => {
   it("should return false if the input isn't correct", () => {
@@ -27,4 +28,5 @@ describe("checkNumericInput", () => {
     // assert
     assert.strictEqual(result, true);
   });
+  rl.close();
 });

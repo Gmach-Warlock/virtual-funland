@@ -33,7 +33,7 @@ export async function registerGuest() {
   const answer = await getStringInput(guestPrompt("add"));
   const newGuest = new Guest(answer);
   guestsList.addGuest(newGuest);
-  parkUpdater("add");
+  parkUpdater("addGuest");
 }
 
 async function findGuest(type) {
@@ -50,7 +50,7 @@ export async function removeGuest() {
   const guestToRemove = await findGuest("remove");
   if (!guestToRemove) return;
   guestsList.removeGuest(guestToRemove);
-  mainMenu();
+  parkUpdater("removeGuest");
 }
 
 export function viewGuestDirectory() {

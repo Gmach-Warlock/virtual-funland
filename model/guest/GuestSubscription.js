@@ -1,17 +1,17 @@
 import { addItemToArray } from "../../controller/CRUDHelpers.js";
 import {
-  changeSubscriber,
-  logSubscriber,
-  subscribersArr,
+  guestLogSubscriber,
+  guestChangeSubscriber,
+  guestSubscribersArr,
 } from "../../features/subscriptions.js";
 
-export class Subscription {
+export class GuestSubscription {
   #subscribers;
 
   constructor() {
     this.#subscribers = [];
-    this.subscribe(changeSubscriber);
-    this.subscribe(logSubscriber);
+    this.subscribe(guestChangeSubscriber);
+    this.subscribe(guestLogSubscriber);
   }
 
   get subscribers() {
@@ -21,7 +21,7 @@ export class Subscription {
     this.#subscribers = newSubscribers;
   }
   build() {
-    subscribersArr.forEach((sub) => {
+    guestSubscribersArr.forEach((sub) => {
       this.subscribe(sub);
     });
   }
@@ -41,4 +41,4 @@ export class Subscription {
   }
 }
 
-export const parkSubscription = new Subscription();
+export const guestSubscription = new GuestSubscription();

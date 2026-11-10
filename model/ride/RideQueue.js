@@ -49,6 +49,7 @@ export class RideQueue {
   }
 
   enqueue(guest) {
+    // we have a decouple but it's not adding to ridequeus??
     if (this.#count === this.#max) {
       console.log(
         `The line is currently full for ${this.#rideName}. Please try again later.`,
@@ -58,27 +59,25 @@ export class RideQueue {
     if (this.#head === null && this.#tail === null) {
       this.#head = newRider;
       this.#tail = newRider;
-      this.#count++;
-      return;
     }
-    const temp = this.#tail;
-    if (temp) this.#tail = newRider;
-    temp.next = newRider;
+    if (this.#head !== null && this.#tail !== null) {
+      const temp = this.#tail;
+      if (temp) this.#tail = newRider;
+      temp.next = newRider;
+    }
+
     this.#count++;
     guest.wait();
   }
 
   dequeue() {
+    // need to decouple
     if (this.#head === null) {
       console.log(
-        `There are no more people in the line for ${this.#head.name}!`,
+        `There are no more people in the line for ${this.#rideName}!`,
       );
       return;
     }
-    console.log(
-      `
-It's now ${this.#head.name}'s turn to ride the ${this.#rideName}`,
-    );
     const removedGuest = guestsList.findGuest(this.#head.name);
     this.#head = this.#head.next;
     this.#count--;

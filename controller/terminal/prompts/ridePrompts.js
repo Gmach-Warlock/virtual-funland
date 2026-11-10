@@ -10,6 +10,12 @@ It has a maximum line capacity of ${max} people.
 
 export function lineRushPrompt(linesObj) {
   console.log(`
-The current guests race to their favorit rides!
+The current guests race to their favorite rides!
 `);
+}
+
+export function dequeueRiderPrompt(rideName, guest) {
+  console.log(`
+${rideName} has now started. 
+${guest.next.name} has boarded the ride,  and ${guest.name} is now departing. `);
 }

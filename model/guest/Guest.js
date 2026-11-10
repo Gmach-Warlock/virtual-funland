@@ -30,7 +30,7 @@ export class Guest {
   }
 
   stopWaiting() {
-    console.log(`${this.#name} has stopped waiting`);
+    // console.log(`${this.#name} has stopped waiting`);
     this.#waiting = false;
   }
 }

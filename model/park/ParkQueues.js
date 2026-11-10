@@ -1,4 +1,5 @@
 import { addItemToArray } from "../../controller/general/CRUDHelpers.js";
+import { parkQueuesLogHelper } from "../../controller/terminal/actions/logHelpers.js";
 
 export class ParkQueues {
   static #instance;
@@ -37,17 +38,7 @@ export class ParkQueues {
   }
 
   log() {
-    console.log(`Rides and their current riders. `);
-    this.#queues.forEach((queue) => {
-      console.log(`= = = = = = = = = = = = = = = = = = = = =
-          ${queue.rideName}
-      `);
-      let current = queue.head;
-      while (current) {
-        console.log(`${current.name}`);
-        current = current.next;
-      }
-    });
+    parkQueuesLogHelper(this.#queues);
   }
 }
 

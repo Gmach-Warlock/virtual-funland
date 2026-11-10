@@ -5,6 +5,7 @@ export function itemExists(arr, prop, value) {
   }
   return true;
 }
+
 export function checkNumericInput(answer, max) {
   if (answer === "") {
     console.log("Please enter something in the field. ");

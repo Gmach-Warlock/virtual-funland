@@ -14,3 +14,5 @@ export function changeSubscriber(type) {
     return lookup[type]();
   }
 }
+
+export const subscribersArr = [logSubscriber, changeSubscriber];

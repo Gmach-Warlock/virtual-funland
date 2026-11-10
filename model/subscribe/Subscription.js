@@ -2,6 +2,7 @@ import { addItemToArray } from "../../controller/general/CRUDHelpers.js";
 import {
   changeSubscriber,
   logSubscriber,
+  subscribersArr,
 } from "../../controller/subscription/subscribers.js";
 
 export class Subscription {
@@ -19,6 +20,12 @@ export class Subscription {
   set subscribers(newSubscribers) {
     this.#subscribers = newSubscribers;
   }
+  build() {
+    subscribersArr.forEach((sub) => {
+      this.subscribe(sub);
+    });
+  }
+
   notify(reason) {
     this.#subscribers.forEach((subscriber) => {
       subscriber(reason);

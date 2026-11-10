@@ -2,14 +2,21 @@ import {
   addItemToArray,
   removeItemFromArray,
 } from "../../controller/general/CRUDHelpers.js";
-import { guestPrompt } from "../../controller/terminal/prompts/responsePrompts.js";
+import { findGuestHelper } from "../../controller/guest/guestHelpers.js";
+import { guestListLogHelper } from "../../controller/terminal/actions/logHelpers.js";
 
 export class GuestsList {
   #guests;
+  #interval;
   constructor() {
     this.#guests = [];
   }
-
+  get interval() {
+    return this.#interval;
+  }
+  set interval(newInterval) {
+    this.#interval = newInterval;
+  }
   get guests() {
     return this.#guests;
   }
@@ -26,11 +33,7 @@ export class GuestsList {
     this.#guests = removeItemFromArray(this.#guests, gToDelete);
   }
   findGuest(name) {
-    const guest = this.#guests.find((guest) => guest.name === name);
-    if (!guest) {
-      console.log("no guest with that name (GuestList class)");
-      return;
-    }
+    const guest = findGuestHelper(name, this.#guests);
     return guest;
   }
 
@@ -40,15 +43,7 @@ export class GuestsList {
   }
 
   logGuests(type) {
-    if (type === "initialize") console.log(guestPrompt(type));
-
-    if (type !== "initiliaze")
-      console.log(`Here are the current Guests
-      `);
-    console.log(`Guests List: `);
-    this.#guests.forEach((guest) => {
-      if (guest) console.log(`Guest: `, guest.name);
-    });
+    guestListLogHelper(type, this.#guests);
   }
 }
 

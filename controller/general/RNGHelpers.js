@@ -1,3 +1,7 @@
+export function rng(possible) {
+  return Math.floor(Math.random() * possible);
+}
+
 export function randomizeArray(arr, num = arr.length) {
   const copyArr = [...arr];
   const newArr = [];

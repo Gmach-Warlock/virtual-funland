@@ -1,16 +1,13 @@
 import { guestsList } from "../../model/guest/GuestsList.js";
 import { waitingLinePrompt } from "../terminal/prompts/linePrompts.js";
 import { lineRushPrompt } from "../terminal/prompts/ridePrompts.js";
+import { rng } from "../general/RNGHelpers.js";
 
 export async function formLine(guestsArr, queue) {
   console.log("forming line", guestsArr, queue);
   guestsArr.forEach((guest) => {
     queue.add(guest);
   });
-}
-
-export function rng(possible) {
-  return Math.floor(Math.random() * possible);
 }
 
 export async function splitUpParty(arr) {
@@ -33,7 +30,7 @@ export async function splitUpParty(arr) {
   return obj;
 }
 
-export function rankLines(linesObj) {
+function creaateUnorderedRanks(linesObj) {
   const clc = {
     name: "Command Line Coaster",
     len: linesObj.clcNPCs.length,
@@ -50,6 +47,11 @@ export function rankLines(linesObj) {
     arr: linesObj.mtpNPCs,
   };
   const unordered = [clc, fc, mtp];
+  return unordered;
+}
+
+export function rankLines(linesObj) {
+  const unordered = creaateUnorderedRanks(linesObj);
   const ordered = unordered.sort((a, b) => b.len - a.len);
   return ordered;
 }
